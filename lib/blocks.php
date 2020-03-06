@@ -17,6 +17,7 @@ function gutenberg_reregister_core_block_types() {
 	}
 
 	$block_names = array(
+		'alert.php'               => 'core/alert',
 		'archives.php'            => 'core/archives',
 		'block.php'               => 'core/block',
 		'calendar.php'            => 'core/calendar',

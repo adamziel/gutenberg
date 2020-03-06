@@ -1,0 +1,49 @@
+{
+  "name": "core/alert",
+  "title": "Test alert block",
+  "description": "Example block written with ESNext standard and JSX support – build step required.",
+  "category": "widgets",
+  "icon": "flag",
+  "supports": {
+    "html": false,
+    "align": true,
+    "alignWide": false,
+    "alignFull": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "textAlign": {
+      "type": "string"
+    }
+  },
+  "styles": [
+    {
+      "name": "info",
+      "label": "Info",
+      "isDefault": true
+    },
+    {
+      "name": "success",
+      "label": "Success"
+    },
+    {
+      "name": "warning",
+      "label": "Warning"
+    },
+    {
+      "name": "error",
+      "label": "Error"
+    }
+  ],
+  "example": {
+    "attributes": {
+      "title": "This is an alert block",
+      "text": "An alert is a message that displays outside the flow of typical content. Alerts provide contextual feedback, typically asking readers to take an action."
+    }
+  }
+}

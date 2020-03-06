@@ -15,6 +15,7 @@ import {
 /**
  * Internal dependencies
  */
+import * as alert from './alert';
 import * as paragraph from './paragraph';
 import * as image from './image';
 import * as heading from './heading';
@@ -104,6 +105,7 @@ const registerBlock = ( block ) => {
  */
 export const registerCoreBlocks = () => {
 	[
+		alert,
 		// Common blocks are grouped at the top to prioritize their display
 		// in various contexts — like the inserter and auto-complete components.
 		paragraph,

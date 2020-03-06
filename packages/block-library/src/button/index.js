@@ -17,7 +17,7 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-	title: __( 'Button' ),
+	title: __( 'Button tada' ),
 	description: __(
 		'Prompt visitors to take action with a button-style link.'
 	),
