@@ -38,21 +38,14 @@ jobs:
         id: expose
         uses: WordPress/action-wp-playground-pr-preview/.github/actions/expose-artifact-on-public-url@v2
         with:
-          # Must match the name used in the build workflow
-          # docs: "artifact-name should match upload-artifact name" :contentReference[oaicite:2]{index=2}
-          artifact-name: gutenberg-plugin-zip-${{ github.event.workflow_run.pull_requests[0].number }}-${{ github.event.workflow_run.head_sha }}
-          # Your zip file name inside the artifact
+          # MUST match the `name:` in upload-artifact
+          artifact-name: gutenberg-plugin-zip
+          # MUST match the file name inside the artifact
           artifact-filename: gutenberg.zip
           pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
           commit-sha: ${{ github.event.workflow_run.head_sha }}
-          # how many latest artifacts to keep per PR
           artifacts-to-keep: '2'
-          # optional, but you're already using this tag
-          release-tag: 'ci-artifacts'
-          # optional; defaults to this repo
-          # release-repository: ${{ github.repository }}
-          # optional; defaults to github.token
-          # github-token: ${{ github.token }}
+
 
   create-blueprint:
     needs: expose-build
