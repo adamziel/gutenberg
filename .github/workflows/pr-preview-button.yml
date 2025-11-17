@@ -13,10 +13,35 @@ permissions:
 jobs:
   build-plugin:
     name: Build Gutenberg plugin zip
-    uses: ./.github/workflows/pr-preview-build.yml
-    with:
-      head-repo: ${{ github.event.pull_request.head.repo.full_name }}
-      head-sha: ${{ github.event.pull_request.head.sha }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out PR head
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Build Gutenberg plugin zip
+        env:
+          NO_CHECKS: 1
+        run: npm run build:plugin-zip
+
+      - name: Upload Gutenberg plugin zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: gutenberg-plugin-zip
+          path: gutenberg.zip
+          if-no-files-found: error
+          retention-days: 3
 
   expose-build:
     name: Expose built Gutenberg plugin artifact
