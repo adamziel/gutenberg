@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Unique per PR + commit so the follow-up workflow can find it
-          name: gutenberg-plugin-zip-${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha }}
+          name: gutenberg-plugin-zip
           path: gutenberg.zip
           if-no-files-found: error
           # Keep it short; the release asset is the “real” published thing
