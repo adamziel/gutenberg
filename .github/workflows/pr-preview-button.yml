@@ -1,10 +1,8 @@
 name: PR Playground Preview (preview)
 
 on:
-  workflow_run:
-    workflows: ["PR Playground Preview (build)"]
-    types:
-      - completed
+  pull_request_target:
+    types: [opened, reopened, synchronize, edited]
 
 # This workflow runs in the base repo, with a write-capable GITHUB_TOKEN.
 permissions:
@@ -13,22 +11,74 @@ permissions:
   pull-requests: write
 
 jobs:
-  expose-build:
-    name: Expose built Gutenberg plugin artifact
-    if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.event == 'pull_request'
+  wait-for-build:
+    name: Wait for successful build workflow
     runs-on: ubuntu-latest
     outputs:
-      artifact-url: ${{ steps.expose.outputs.artifact-url }}
+      run-id: ${{ steps.poll.outputs.run-id }}
+
+    steps:
+      - name: Poll PR Playground build run
+        id: poll
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const headSha = context.payload.pull_request.head.sha;
+            const workflowFile = 'pr-preview-build.yml';
+            const maxAttempts = 40;
+            const delayMs = 15000;
+            const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+            for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+              const { data } = await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: workflowFile,
+                event: 'pull_request',
+                per_page: 50
+              });
+
+              const run = data.workflow_runs.find((candidate) => candidate.head_sha === headSha);
+
+              if (!run) {
+                core.info(`Attempt ${attempt}: build run not found yet for ${headSha}.`);
+                await wait(delayMs);
+                continue;
+              }
+
+              if (run.status !== 'completed') {
+                core.info(`Attempt ${attempt}: build run ${run.id} still in status ${run.status}.`);
+                await wait(delayMs);
+                continue;
+              }
+
+              if (run.conclusion !== 'success') {
+                core.setFailed(`Build workflow run ${run.html_url} concluded with ${run.conclusion}.`);
+                return;
+              }
+
+              core.info(`Build workflow run ${run.id} succeeded: ${run.html_url}`);
+              core.setOutput('run-id', String(run.id));
+              return;
+            }
+
+            core.setFailed(`Timed out waiting for PR Playground build workflow to finish for ${headSha}.`);
+
+  expose-build:
+    name: Expose built Gutenberg plugin artifact
+    needs: wait-for-build
+    if: needs.wait-for-build.outputs.run-id != ''
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-url: ${{ steps.expose.outputs['artifact-url'] }}
 
     steps:
       - name: Download Gutenberg plugin zip from build workflow
         uses: actions/download-artifact@v4
         with:
           name: gutenberg-plugin-zip
-          repository: ${{ github.event.workflow_run.repository.full_name }}
-          run-id: ${{ github.event.workflow_run.id }}
+          repository: ${{ github.repository }}
+          run-id: ${{ needs.wait-for-build.outputs.run-id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ./dist
 
@@ -45,8 +95,8 @@ jobs:
         with:
           artifact-name: gutenberg-plugin-zip        # must match the name above
           artifact-filename: gutenberg.zip
-          pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
-          commit-sha: ${{ github.event.workflow_run.head_sha }}
+          pr-number: ${{ github.event.pull_request.number }}
+          commit-sha: ${{ github.event.pull_request.head.sha }}
           artifacts-to-keep: '2'
 
   create-blueprint:
