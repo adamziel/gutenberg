@@ -2,8 +2,16 @@
 name: PR Playground Preview (Build)
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited]
+  workflow_call:
+    inputs:
+      head-repo:
+        description: Repository containing the PR head (e.g., owner/repo)
+        required: true
+        type: string
+      head-sha:
+        description: Commit SHA to build
+        required: true
+        type: string
 
 # This one runs on untrusted PR code (including forks) → keep it read-only.
 permissions:
@@ -18,8 +26,8 @@ jobs:
       - name: Check out PR head
         uses: actions/checkout@v4
         with:
-          # Always build the actual PR head commit
-          ref: ${{ github.event.pull_request.head.sha }}
+          repository: ${{ inputs.head-repo }}
+          ref: ${{ inputs.head-sha }}
           persist-credentials: false
 
       - name: Setup Node.js

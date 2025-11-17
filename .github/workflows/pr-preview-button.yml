@@ -11,84 +11,21 @@ permissions:
   pull-requests: write
 
 jobs:
-  wait-for-build:
-    name: Wait for successful build workflow
-    runs-on: ubuntu-latest
-    outputs:
-      run-id: ${{ steps.poll.outputs.run-id }}
-
-    steps:
-      - name: Poll PR Playground build run
-        id: poll
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const headSha = context.payload.pull_request.head.sha;
-            const workflowFile = 'pr-preview-build.yml';
-            const maxAttempts = 40;
-            const delayMs = 15000;
-            const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-            for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-              const { data } = await github.rest.actions.listWorkflowRuns({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                workflow_id: workflowFile,
-                event: 'pull_request',
-                per_page: 50
-              });
-
-              const run = data.workflow_runs.find((candidate) => candidate.head_sha === headSha);
-
-              if (!run) {
-                core.info(`Attempt ${attempt}: build run not found yet for ${headSha}.`);
-                await wait(delayMs);
-                continue;
-              }
-
-              if (run.status !== 'completed') {
-                core.info(`Attempt ${attempt}: build run ${run.id} still in status ${run.status}.`);
-                await wait(delayMs);
-                continue;
-              }
-
-              if (run.conclusion !== 'success') {
-                core.setFailed(`Build workflow run ${run.html_url} concluded with ${run.conclusion}.`);
-                return;
-              }
-
-              core.info(`Build workflow run ${run.id} succeeded: ${run.html_url}`);
-              core.setOutput('run-id', String(run.id));
-              return;
-            }
-
-            core.setFailed(`Timed out waiting for PR Playground build workflow to finish for ${headSha}.`);
+  build-plugin:
+    name: Build Gutenberg plugin zip
+    uses: ./.github/workflows/pr-preview-build.yml
+    with:
+      head-repo: ${{ github.event.pull_request.head.repo.full_name }}
+      head-sha: ${{ github.event.pull_request.head.sha }}
 
   expose-build:
     name: Expose built Gutenberg plugin artifact
-    needs: wait-for-build
-    if: needs.wait-for-build.outputs.run-id != ''
+    needs: build-plugin
     runs-on: ubuntu-latest
     outputs:
       artifact-url: ${{ steps.expose.outputs['artifact-url'] }}
 
     steps:
-      - name: Download Gutenberg plugin zip from build workflow
-        uses: actions/download-artifact@v4
-        with:
-          name: gutenberg-plugin-zip
-          repository: ${{ github.repository }}
-          run-id: ${{ needs.wait-for-build.outputs.run-id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: ./dist
-
-      - name: Re-upload plugin zip for this workflow
-        uses: actions/upload-artifact@v4
-        with:
-          name: gutenberg-plugin-zip
-          path: ./dist/gutenberg.zip
-          if-no-files-found: error
-
       - name: Expose built artifact
         id: expose
         uses: WordPress/action-wp-playground-pr-preview/.github/actions/expose-artifact-on-public-url@v2
