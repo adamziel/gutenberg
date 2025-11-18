@@ -36,7 +36,7 @@ jobs:
             });
 
             const metadataArtifact = artifacts.data.artifacts.find((artifact) => {
-              return artifact.name.startsWith("pr-metadata-")
+              return artifact.name === "pr-metadata"
             });
 
             if (!metadataArtifact) {
@@ -71,7 +71,7 @@ jobs:
             });
 
             const pluginArtifact = artifacts.data.artifacts.find((artifact) => {
-              return artifact.name.startsWith("gutenberg-plugin-zip-")
+              return artifact.name === "gutenberg-plugin-zip"
             });
 
             if (!pluginArtifact) {
@@ -88,19 +88,81 @@ jobs:
             const fs = require('fs');
             fs.writeFileSync('${{ github.workspace }}/gutenberg-plugin.zip', Buffer.from(download.data));
 
-      - name: Extract plugin
+      - name: Extract and prepare plugin artifact
+        id: prepare-artifact
         run: |
           unzip gutenberg-plugin.zip
+          artifact_name="pr-${{ steps.pr-metadata.outputs.pr-number }}-${{ steps.pr-metadata.outputs.commit-sha }}.zip"
+          mv gutenberg.zip "$artifact_name"
+          echo "artifact-name=$artifact_name" >> $GITHUB_OUTPUT
 
-      - name: Expose built artifact
+      - name: Ensure release exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view ci-artifacts > /dev/null 2>&1; then
+            echo "Release ci-artifacts already exists"
+          else
+            echo "Creating draft release ci-artifacts"
+            gh release create ci-artifacts \
+              --draft \
+              --notes "Automated release for WordPress Playground CI artifacts"
+          fi
+
+      - name: Upload artifact to release
         id: expose
-        uses: WordPress/action-wp-playground-pr-preview/.github/actions/expose-artifact-on-public-url@v2
-        with:
-          artifact-name: gutenberg-plugin-zip-${{ steps.pr-metadata.outputs.pr-number }}
-          artifact-filename: gutenberg.zip
-          pr-number: ${{ steps.pr-metadata.outputs.pr-number }}
-          commit-sha: ${{ steps.pr-metadata.outputs.commit-sha }}
-          artifacts-to-keep: '2'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          artifact_name="${{ steps.prepare-artifact.outputs.artifact-name }}"
+
+          echo "Uploading $artifact_name to ci-artifacts release..."
+          gh release upload ci-artifacts "$artifact_name" --clobber
+
+          artifact_url="https://github.com/${{ github.repository }}/releases/download/ci-artifacts/$artifact_name"
+
+          echo "artifact-name=$artifact_name" >> $GITHUB_OUTPUT
+          echo "artifact-url=$artifact_url" >> $GITHUB_OUTPUT
+          echo "Artifact uploaded to: $artifact_url"
+
+      - name: Cleanup old artifacts for this PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.pr-metadata.outputs.pr-number }}
+        run: |
+          echo "Cleaning up old artifacts for PR #$PR_NUMBER (keeping 2 most recent)"
+
+          gh release view ci-artifacts --json assets \
+            --jq ".assets[] | select(.name | startswith(\"pr-$PR_NUMBER-\")) | \"\(.createdAt)|\(.name)\"" \
+            > pr-artifacts.txt || touch pr-artifacts.txt
+
+          if [ ! -s pr-artifacts.txt ]; then
+            echo "No existing artifacts found for PR #$PR_NUMBER"
+            exit 0
+          fi
+
+          artifact_count=$(wc -l < pr-artifacts.txt | tr -d ' ')
+          echo "Found $artifact_count total artifact(s) for PR #$PR_NUMBER"
+
+          if [ "$artifact_count" -le "2" ]; then
+            echo "Artifact count ($artifact_count) is within limit (2), no cleanup needed"
+            exit 0
+          fi
+
+          sort -r pr-artifacts.txt > pr-artifacts-sorted.txt
+
+          current=0
+          while IFS='|' read -r timestamp artifact; do
+            current=$((current + 1))
+            if [ $current -le 2 ]; then
+              echo "Keeping: $artifact (artifact $current of 2)"
+            else
+              echo "Deleting: $artifact (old artifact #$current)"
+              gh release delete-asset ci-artifacts "$artifact" --yes || echo "Failed to delete $artifact"
+            fi
+          done < pr-artifacts-sorted.txt
+
+          echo "Cleanup complete for PR #$PR_NUMBER"
 
       - name: Create blueprint
         id: blueprint

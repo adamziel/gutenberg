@@ -31,7 +31,7 @@ jobs:
       - name: Upload Gutenberg plugin zip
         uses: actions/upload-artifact@v4
         with:
-          name: gutenberg-plugin-zip-${{ github.event.pull_request.number }}
+          name: gutenberg-plugin-zip
           path: gutenberg.zip
           if-no-files-found: error
 
@@ -44,6 +44,6 @@ jobs:
       - name: Upload PR metadata
         uses: actions/upload-artifact@v4
         with:
-          name: pr-metadata-${{ github.event.pull_request.number }}
+          name: pr-metadata
           path: pr-metadata/
           if-no-files-found: error
