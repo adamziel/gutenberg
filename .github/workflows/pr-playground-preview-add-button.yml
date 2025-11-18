@@ -24,13 +24,27 @@ jobs:
       artifact-url: ${{ steps.expose.outputs.artifact-url }}
       artifact-name: ${{ steps.expose.outputs.artifact-name }}
     steps:
+      - name: Get PR number from commit
+        id: pr-metadata
+        run: |
+          PR_NUMBER=$(gh api /repos/${{ github.repository }}/commits/${{ github.event.workflow_run.head_sha }}/pulls --jq '.[0].number')
+
+          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
+            echo "Error: Could not determine PR number for commit ${{ github.event.workflow_run.head_sha }}"
+            exit 1
+          fi
+
+          echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Expose built artifact
         id: expose
         uses: WordPress/action-wp-playground-pr-preview/.github/actions/expose-artifact-on-public-url@main
         with:
           artifact-name: gutenberg-plugin-zip
           artifact-filename: gutenberg.zip
-          pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          pr-number: ${{ steps.pr-metadata.outputs.pr-number }}
           commit-sha: ${{ github.event.workflow_run.head_sha }}
           artifact-source-run-id: ${{ github.event.workflow_run.id }}
           artifacts-to-keep: '2'
@@ -41,5 +55,5 @@ jobs:
           mode: append-to-description
           blueprint: >-
             {"steps":[{"step":"installPlugin","pluginZipFile":{"resource":"url","url":"${{ steps.expose.outputs.artifact-url }}"}}]}
-          pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          pr-number: ${{ steps.pr-metadata.outputs.pr-number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
