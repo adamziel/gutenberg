@@ -100,11 +100,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if gh release view ci-artifacts > /dev/null 2>&1; then
+          if gh release view ci-artifacts --repo ${{ github.repository }} > /dev/null 2>&1; then
             echo "Release ci-artifacts already exists"
           else
             echo "Creating draft release ci-artifacts"
             gh release create ci-artifacts \
+              --repo ${{ github.repository }} \
               --draft \
               --notes "Automated release for WordPress Playground CI artifacts"
           fi
@@ -117,7 +118,9 @@ jobs:
           artifact_name="${{ steps.prepare-artifact.outputs.artifact-name }}"
 
           echo "Uploading $artifact_name to ci-artifacts release..."
-          gh release upload ci-artifacts "$artifact_name" --clobber
+          gh release upload ci-artifacts "$artifact_name" \
+            --repo ${{ github.repository }} \
+            --clobber
 
           artifact_url="https://github.com/${{ github.repository }}/releases/download/ci-artifacts/$artifact_name"
 
@@ -132,7 +135,9 @@ jobs:
         run: |
           echo "Cleaning up old artifacts for PR #$PR_NUMBER (keeping 2 most recent)"
 
-          gh release view ci-artifacts --json assets \
+          gh release view ci-artifacts \
+            --repo ${{ github.repository }} \
+            --json assets \
             --jq ".assets[] | select(.name | startswith(\"pr-$PR_NUMBER-\")) | \"\(.createdAt)|\(.name)\"" \
             > pr-artifacts.txt || touch pr-artifacts.txt
 
@@ -158,7 +163,9 @@ jobs:
               echo "Keeping: $artifact (artifact $current of 2)"
             else
               echo "Deleting: $artifact (old artifact #$current)"
-              gh release delete-asset ci-artifacts "$artifact" --yes || echo "Failed to delete $artifact"
+              gh release delete-asset ci-artifacts "$artifact" \
+                --repo ${{ github.repository }} \
+                --yes || echo "Failed to delete $artifact"
             fi
           done < pr-artifacts-sorted.txt
 
