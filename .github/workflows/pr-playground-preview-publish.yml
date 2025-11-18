@@ -196,3 +196,4 @@ jobs:
           mode: append-to-description
           blueprint: ${{ steps.blueprint.outputs.result }}
           pr-number: ${{ steps.pr-metadata.outputs.pr-number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
