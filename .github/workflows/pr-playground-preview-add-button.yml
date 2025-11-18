@@ -24,28 +24,45 @@ jobs:
       artifact-url: ${{ steps.expose.outputs.artifact-url }}
       artifact-name: ${{ steps.expose.outputs.artifact-name }}
     steps:
-      - name: Get PR number from commit
+      - name: Extract PR metadata from artifact name
         id: pr-metadata
-        run: |
-          PR_NUMBER=$(gh api /repos/${{ github.repository }}/commits/${{ github.event.workflow_run.head_sha }}/pulls --jq '.[0].number')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.event.workflow_run.id }},
+            });
 
-          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
-            echo "Error: Could not determine PR number for commit ${{ github.event.workflow_run.head_sha }}"
-            exit 1
-          fi
+            const artifact = artifacts.data.artifacts.find(a =>
+              a.name.startsWith("gutenberg-plugin-zip-pr")
+            );
 
-          echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            if (!artifact) {
+              throw new Error('Could not find plugin artifact');
+            }
+
+            // Parse: gutenberg-plugin-zip-pr123-abc123def...
+            const match = artifact.name.match(/^gutenberg-plugin-zip-pr(\d+)-(.+)$/);
+            if (!match) {
+              throw new Error(`Could not parse artifact name: ${artifact.name}`);
+            }
+
+            const [, prNumber, commitSha] = match;
+
+            core.setOutput('pr-number', prNumber);
+            core.setOutput('commit-sha', commitSha);
+            core.setOutput('artifact-name', artifact.name);
 
       - name: Expose built artifact
         id: expose
         uses: WordPress/action-wp-playground-pr-preview/.github/actions/expose-artifact-on-public-url@main
         with:
-          artifact-name: gutenberg-plugin-zip
+          artifact-name: ${{ steps.pr-metadata.outputs.artifact-name }}
           artifact-filename: gutenberg.zip
           pr-number: ${{ steps.pr-metadata.outputs.pr-number }}
-          commit-sha: ${{ github.event.workflow_run.head_sha }}
+          commit-sha: ${{ steps.pr-metadata.outputs.commit-sha }}
           artifact-source-run-id: ${{ github.event.workflow_run.id }}
           artifacts-to-keep: '2'
 

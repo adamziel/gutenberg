@@ -31,6 +31,6 @@ jobs:
       - name: Upload Gutenberg plugin zip
         uses: actions/upload-artifact@v4
         with:
-          name: gutenberg-plugin-zip
+          name: gutenberg-plugin-zip-pr${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha }}
           path: gutenberg.zip
           if-no-files-found: error
