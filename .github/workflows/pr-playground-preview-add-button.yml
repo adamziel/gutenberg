@@ -23,177 +23,23 @@ jobs:
     outputs:
       artifact-url: ${{ steps.expose.outputs.artifact-url }}
       artifact-name: ${{ steps.expose.outputs.artifact-name }}
-      blueprint: ${{ steps.blueprint.outputs.result }}
     steps:
-      - name: Download PR metadata artifact
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: ${{ github.event.workflow_run.id }},
-            });
-
-            const metadataArtifact = artifacts.data.artifacts.find((artifact) => {
-              return artifact.name === "pr-metadata"
-            });
-
-            if (!metadataArtifact) {
-              throw new Error('PR metadata artifact not found');
-            }
-
-            const download = await github.rest.actions.downloadArtifact({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              artifact_id: metadataArtifact.id,
-              archive_format: 'zip',
-            });
-
-            const fs = require('fs');
-            fs.writeFileSync('${{ github.workspace }}/pr-metadata.zip', Buffer.from(download.data));
-
-      - name: Extract PR metadata
-        id: pr-metadata
-        run: |
-          unzip pr-metadata.zip
-          echo "pr-number=$(cat pr-number)" >> $GITHUB_OUTPUT
-          echo "commit-sha=$(cat commit-sha)" >> $GITHUB_OUTPUT
-
-      - name: Download plugin artifact
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: ${{ github.event.workflow_run.id }},
-            });
-
-            const pluginArtifact = artifacts.data.artifacts.find((artifact) => {
-              return artifact.name === "gutenberg-plugin-zip"
-            });
-
-            if (!pluginArtifact) {
-              throw new Error('Plugin artifact not found');
-            }
-
-            const download = await github.rest.actions.downloadArtifact({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              artifact_id: pluginArtifact.id,
-              archive_format: 'zip',
-            });
-
-            const fs = require('fs');
-            fs.writeFileSync('${{ github.workspace }}/gutenberg-plugin.zip', Buffer.from(download.data));
-
-      - name: Extract and prepare plugin artifact
-        id: prepare-artifact
-        run: |
-          unzip gutenberg-plugin.zip
-          artifact_name="pr-${{ steps.pr-metadata.outputs.pr-number }}-${{ steps.pr-metadata.outputs.commit-sha }}.zip"
-          mv gutenberg.zip "$artifact_name"
-          echo "artifact-name=$artifact_name" >> $GITHUB_OUTPUT
-
-      - name: Ensure release exists
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if gh release view ci-artifacts --repo ${{ github.repository }} > /dev/null 2>&1; then
-            echo "Release ci-artifacts already exists"
-          else
-            echo "Creating draft release ci-artifacts"
-            gh release create ci-artifacts \
-              --repo ${{ github.repository }} \
-              --draft \
-              --notes "Automated release for WordPress Playground CI artifacts"
-          fi
-
-      - name: Upload artifact to release
+      - name: Expose built artifact
         id: expose
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          artifact_name="${{ steps.prepare-artifact.outputs.artifact-name }}"
-
-          echo "Uploading $artifact_name to ci-artifacts release..."
-          gh release upload ci-artifacts "$artifact_name" \
-            --repo ${{ github.repository }} \
-            --clobber
-
-          artifact_url="https://github.com/${{ github.repository }}/releases/download/ci-artifacts/$artifact_name"
-
-          echo "artifact-name=$artifact_name" >> $GITHUB_OUTPUT
-          echo "artifact-url=$artifact_url" >> $GITHUB_OUTPUT
-          echo "Artifact uploaded to: $artifact_url"
-
-      - name: Cleanup old artifacts for this PR
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ steps.pr-metadata.outputs.pr-number }}
-        run: |
-          echo "Cleaning up old artifacts for PR #$PR_NUMBER (keeping 2 most recent)"
-
-          gh release view ci-artifacts \
-            --repo ${{ github.repository }} \
-            --json assets \
-            --jq ".assets[] | select(.name | startswith(\"pr-$PR_NUMBER-\")) | \"\(.createdAt)|\(.name)\"" \
-            > pr-artifacts.txt || touch pr-artifacts.txt
-
-          if [ ! -s pr-artifacts.txt ]; then
-            echo "No existing artifacts found for PR #$PR_NUMBER"
-            exit 0
-          fi
-
-          artifact_count=$(wc -l < pr-artifacts.txt | tr -d ' ')
-          echo "Found $artifact_count total artifact(s) for PR #$PR_NUMBER"
-
-          if [ "$artifact_count" -le "2" ]; then
-            echo "Artifact count ($artifact_count) is within limit (2), no cleanup needed"
-            exit 0
-          fi
-
-          sort -r pr-artifacts.txt > pr-artifacts-sorted.txt
-
-          current=0
-          while IFS='|' read -r timestamp artifact; do
-            current=$((current + 1))
-            if [ $current -le 2 ]; then
-              echo "Keeping: $artifact (artifact $current of 2)"
-            else
-              echo "Deleting: $artifact (old artifact #$current)"
-              gh release delete-asset ci-artifacts "$artifact" \
-                --repo ${{ github.repository }} \
-                --yes || echo "Failed to delete $artifact"
-            fi
-          done < pr-artifacts-sorted.txt
-
-          echo "Cleanup complete for PR #$PR_NUMBER"
-
-      - name: Create blueprint
-        id: blueprint
-        uses: actions/github-script@v7
+        uses: WordPress/action-wp-playground-pr-preview/.github/actions/expose-artifact-on-public-url@main
         with:
-          script: |
-            const blueprint = {
-              steps: [
-                {
-                  step: "installPlugin",
-                  pluginZipFile: {
-                    resource: "url",
-                    url: "${{ steps.expose.outputs.artifact-url }}"
-                  }
-                }
-              ]
-            };
-            return JSON.stringify( blueprint );
-          result-encoding: string
+          artifact-name: gutenberg-plugin-zip
+          artifact-filename: gutenberg.zip
+          pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          commit-sha: ${{ github.event.workflow_run.head_sha }}
+          artifact-source-run-id: ${{ github.event.workflow_run.id }}
+          artifacts-to-keep: '2'
 
       - name: Post Playground preview button
         uses: WordPress/action-wp-playground-pr-preview@main
         with:
           mode: append-to-description
-          blueprint: ${{ steps.blueprint.outputs.result }}
-          pr-number: ${{ steps.pr-metadata.outputs.pr-number }}
+          blueprint: >-
+            {"steps":[{"step":"installPlugin","pluginZipFile":{"resource":"url","url":"${{ steps.expose.outputs.artifact-url }}"}}]}
+          pr-number: ${{ github.event.workflow_run.pull_requests[0].number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

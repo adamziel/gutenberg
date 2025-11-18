@@ -34,16 +34,3 @@ jobs:
           name: gutenberg-plugin-zip
           path: gutenberg.zip
           if-no-files-found: error
-
-      - name: Save PR metadata
-        run: |
-          mkdir -p ./pr-metadata
-          echo ${{ github.event.pull_request.number }} > ./pr-metadata/pr-number
-          echo ${{ github.event.pull_request.head.sha }} > ./pr-metadata/commit-sha
-
-      - name: Upload PR metadata
-        uses: actions/upload-artifact@v4
-        with:
-          name: pr-metadata
-          path: pr-metadata/
-          if-no-files-found: error
