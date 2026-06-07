@@ -1,0 +1,1113 @@
+{
+  "postId": "96",
+  "snapshots": [
+    {
+      "label": "after loading editor, before touching the post",
+      "count": 8,
+      "dirty": [
+        {
+          "key": "twentytwentyfive//header",
+          "title": "Header",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": "twentytwentyfive//newsletter-signup",
+          "title": "newsletter signup",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": "twentytwentyfive//footer",
+          "title": "Footer",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": 88,
+          "title": "Header",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 89,
+          "title": "Navigation 6",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 90,
+          "title": "Navigation 7",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 91,
+          "title": "Navigation 8",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 92,
+          "title": "Footer navigation",
+          "name": "wp_navigation",
+          "kind": "postType"
+        }
+      ],
+      "compactEdits": {
+        "wp_template_part:twentytwentyfive//header": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "fef227c1-077e-41a7-b0f9-5a4d10053d7f",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "44d3ca24-05eb-44d8-bbc2-45f7b524c139",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>Header text</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "Header text",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "141242db-5ef3-4e61-b202-ecc1f58c3ceb",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 88,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "d608ba25-2a4a-47f3-83e8-ef74c0f56003",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 89,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "ca824c68-999d-45c6-b920-7a956be371a0",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 90,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_template_part:twentytwentyfive//newsletter-signup": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "e4bca5f6-a1fb-4aee-9d2c-933d51cc75d9",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "44b4b7df-ce39-4aad-ac91-7709c5c1be8d",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>newsletter signup</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "newsletter signup",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "c2a0a135-a807-451a-9e19-9766d8aac1fc",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 91,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_template_part:twentytwentyfive//footer": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "8d6a21f4-60f6-4351-84cd-bf2753b5ae89",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "427864b5-043c-4076-bf45-693457ebc063",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>Footer text</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "Footer text",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "3260395a-fb4b-4f63-bcbd-d0c2ccad386e",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 92,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_navigation:88": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "6e836f60-e543-4ae3-b448-ee95356bb2db",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:89": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "52547b85-a24c-452a-92a0-1094ea2e1731",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:90": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "b8bb9316-019b-465e-9958-e7abd1cec284",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:91": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "c1b52718-5477-4fa9-8156-23cd468d0e5f",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:92": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "77fe7e31-b3ee-43b7-8661-d7b5f3576630",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "after small edit in post paragraph",
+      "count": 9,
+      "dirty": [
+        {
+          "key": 96,
+          "title": "Eight related auto dirty draft",
+          "name": "post",
+          "kind": "postType"
+        },
+        {
+          "key": "twentytwentyfive//header",
+          "title": "Header",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": "twentytwentyfive//newsletter-signup",
+          "title": "newsletter signup",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": "twentytwentyfive//footer",
+          "title": "Footer",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": 88,
+          "title": "Header",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 89,
+          "title": "Navigation 6",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 90,
+          "title": "Navigation 7",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 91,
+          "title": "Navigation 8",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 92,
+          "title": "Footer navigation",
+          "name": "wp_navigation",
+          "kind": "postType"
+        }
+      ],
+      "compactEdits": {
+        "post:96": {
+          "selection": {
+            "selectionStart": {
+              "clientId": "d544a6d6-dca9-4f0f-bf17-743e6d699c92",
+              "attributeKey": "content",
+              "offset": 36
+            },
+            "selectionEnd": {
+              "clientId": "d544a6d6-dca9-4f0f-bf17-743e6d699c92",
+              "attributeKey": "content",
+              "offset": 36
+            },
+            "initialPosition": 0
+          },
+          "blocks": [
+            {
+              "clientId": "d544a6d6-dca9-4f0f-bf17-743e6d699c92",
+              "name": "core/paragraph",
+              "isValid": true,
+              "originalContent": "<p>Only this paragraph should change.</p>",
+              "validationIssues": [],
+              "attributes": {
+                "content": "Only this paragraph should change. x",
+                "dropCap": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_template_part:twentytwentyfive//header": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "fef227c1-077e-41a7-b0f9-5a4d10053d7f",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "44d3ca24-05eb-44d8-bbc2-45f7b524c139",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>Header text</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "Header text",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "141242db-5ef3-4e61-b202-ecc1f58c3ceb",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 88,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "d608ba25-2a4a-47f3-83e8-ef74c0f56003",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 89,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "ca824c68-999d-45c6-b920-7a956be371a0",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 90,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_template_part:twentytwentyfive//newsletter-signup": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "e4bca5f6-a1fb-4aee-9d2c-933d51cc75d9",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "44b4b7df-ce39-4aad-ac91-7709c5c1be8d",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>newsletter signup</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "newsletter signup",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "c2a0a135-a807-451a-9e19-9766d8aac1fc",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 91,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_template_part:twentytwentyfive//footer": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "8d6a21f4-60f6-4351-84cd-bf2753b5ae89",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "427864b5-043c-4076-bf45-693457ebc063",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>Footer text</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "Footer text",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "3260395a-fb4b-4f63-bcbd-d0c2ccad386e",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 92,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_navigation:88": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "6e836f60-e543-4ae3-b448-ee95356bb2db",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:89": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "52547b85-a24c-452a-92a0-1094ea2e1731",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:90": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "b8bb9316-019b-465e-9958-e7abd1cec284",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:91": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "c1b52718-5477-4fa9-8156-23cd468d0e5f",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:92": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "77fe7e31-b3ee-43b7-8661-d7b5f3576630",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "with save dialog open",
+      "count": 9,
+      "dirty": [
+        {
+          "key": 96,
+          "title": "Eight related auto dirty draft",
+          "name": "post",
+          "kind": "postType"
+        },
+        {
+          "key": "twentytwentyfive//header",
+          "title": "Header",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": "twentytwentyfive//newsletter-signup",
+          "title": "newsletter signup",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": "twentytwentyfive//footer",
+          "title": "Footer",
+          "name": "wp_template_part",
+          "kind": "postType"
+        },
+        {
+          "key": 88,
+          "title": "Header",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 89,
+          "title": "Navigation 6",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 90,
+          "title": "Navigation 7",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 91,
+          "title": "Navigation 8",
+          "name": "wp_navigation",
+          "kind": "postType"
+        },
+        {
+          "key": 92,
+          "title": "Footer navigation",
+          "name": "wp_navigation",
+          "kind": "postType"
+        }
+      ],
+      "compactEdits": {
+        "post:96": {
+          "selection": {
+            "selectionStart": {
+              "clientId": "d544a6d6-dca9-4f0f-bf17-743e6d699c92",
+              "attributeKey": "content",
+              "offset": 36
+            },
+            "selectionEnd": {
+              "clientId": "d544a6d6-dca9-4f0f-bf17-743e6d699c92",
+              "attributeKey": "content",
+              "offset": 36
+            },
+            "initialPosition": 0
+          },
+          "blocks": [
+            {
+              "clientId": "d544a6d6-dca9-4f0f-bf17-743e6d699c92",
+              "name": "core/paragraph",
+              "isValid": true,
+              "originalContent": "<p>Only this paragraph should change.</p>",
+              "validationIssues": [],
+              "attributes": {
+                "content": "Only this paragraph should change. x",
+                "dropCap": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_template_part:twentytwentyfive//header": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "fef227c1-077e-41a7-b0f9-5a4d10053d7f",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "44d3ca24-05eb-44d8-bbc2-45f7b524c139",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>Header text</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "Header text",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "141242db-5ef3-4e61-b202-ecc1f58c3ceb",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 88,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "d608ba25-2a4a-47f3-83e8-ef74c0f56003",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 89,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "ca824c68-999d-45c6-b920-7a956be371a0",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 90,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_template_part:twentytwentyfive//newsletter-signup": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "e4bca5f6-a1fb-4aee-9d2c-933d51cc75d9",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "44b4b7df-ce39-4aad-ac91-7709c5c1be8d",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>newsletter signup</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "newsletter signup",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "c2a0a135-a807-451a-9e19-9766d8aac1fc",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 91,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_template_part:twentytwentyfive//footer": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "8d6a21f4-60f6-4351-84cd-bf2753b5ae89",
+              "name": "core/group",
+              "isValid": true,
+              "originalContent": "<div class=\"wp-block-group\"></div>",
+              "validationIssues": [],
+              "attributes": {
+                "tagName": "div"
+              },
+              "innerBlocks": [
+                {
+                  "clientId": "427864b5-043c-4076-bf45-693457ebc063",
+                  "name": "core/paragraph",
+                  "isValid": true,
+                  "originalContent": "<p>Footer text</p>",
+                  "validationIssues": [],
+                  "attributes": {
+                    "content": "Footer text",
+                    "dropCap": false
+                  },
+                  "innerBlocks": []
+                },
+                {
+                  "clientId": "3260395a-fb4b-4f63-bcbd-d0c2ccad386e",
+                  "name": "core/navigation",
+                  "isValid": true,
+                  "originalContent": "",
+                  "validationIssues": [],
+                  "attributes": {
+                    "ref": 92,
+                    "showSubmenuIcon": true,
+                    "submenuVisibility": "hover",
+                    "overlayMenu": "never",
+                    "icon": "handle",
+                    "hasIcon": true,
+                    "maxNestingLevel": 5
+                  },
+                  "innerBlocks": []
+                }
+              ]
+            }
+          ]
+        },
+        "wp_navigation:88": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "6e836f60-e543-4ae3-b448-ee95356bb2db",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:89": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "52547b85-a24c-452a-92a0-1094ea2e1731",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:90": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "b8bb9316-019b-465e-9958-e7abd1cec284",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:91": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "c1b52718-5477-4fa9-8156-23cd468d0e5f",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        },
+        "wp_navigation:92": {
+          "selection": {
+            "selectionStart": {},
+            "selectionEnd": {},
+            "initialPosition": null
+          },
+          "blocks": [
+            {
+              "clientId": "77fe7e31-b3ee-43b7-8661-d7b5f3576630",
+              "name": "core/page-list",
+              "isValid": true,
+              "originalContent": "",
+              "validationIssues": [],
+              "attributes": {
+                "parentPageID": 0,
+                "isNested": false
+              },
+              "innerBlocks": []
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "panelText": "Cancel\nSave\nAre you ready to save?\n\nThere are 9 site changes waiting to be saved.\n\nTemplate Parts\nHeader\nnewsletter signup\nFooter\nPosts\nThe following has been modified.\nEight related auto dirty draft\nNavigation Menus\nHeader\nNavigation 6\nNavigation 7\nNavigation 8\nFooter navigation",
+  "finalPng": ".context/eight-related-auto-dirty-final-frame.png",
+  "videoPath": "/Users/cloudnik/conductor/workspaces/wordpress-develop/honolulu/.context/videos-8-related-auto-dirty/dffd83fe532ff6c9a1d6de8ca1a08a8a.webm"
+}

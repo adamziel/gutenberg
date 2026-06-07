@@ -1,0 +1,42 @@
+{
+  "postId": "133",
+  "snapshots": [
+    {
+      "label": "after load",
+      "count": 0,
+      "dirty": []
+    },
+    {
+      "label": "after small post paragraph edit",
+      "count": 1,
+      "dirty": [
+        {
+          "key": 133,
+          "title": "Eight related auto dirty draft",
+          "name": "post",
+          "kind": "postType"
+        }
+      ]
+    },
+    {
+      "label": "before save draft",
+      "count": 1,
+      "dirty": [
+        {
+          "key": 133,
+          "title": "Eight related auto dirty draft",
+          "name": "post",
+          "kind": "postType"
+        }
+      ]
+    },
+    {
+      "label": "after save draft",
+      "count": 0,
+      "dirty": []
+    }
+  ],
+  "bodyTextHadSiteChanges": false,
+  "finalPng": ".context/after-fix-no-related-dirty-final-frame.png",
+  "videoPath": "/Users/cloudnik/conductor/workspaces/wordpress-develop/honolulu/.context/videos-after-fix-no-related-dirty/8093ac2475fb92a5066f77614c5a95bb.webm"
+}
